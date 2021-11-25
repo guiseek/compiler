@@ -7,10 +7,6 @@ const formatHost: ts.FormatDiagnosticsHost = {
   getNewLine: () => ts.sys.newLine,
 }
 
-/**
- * Compilador de desenvolvimento
- * @param path caminho de busca
- */
 function dev({
   path = './'
 }) {
@@ -22,7 +18,7 @@ function dev({
   if (!configPath) {
     const message = 'Não foi encontrado um arquivo \'tsconfig.json\' válido.'
     output.error({
-      title: 'Configuração inválida',
+      title: 'Configuração inválida ou ausente',
       bodyLines: [message]
     })
     throw new Error(message)
@@ -50,7 +46,8 @@ function dev({
   const createProgram = ts.createSemanticDiagnosticsBuilderProgram
 
   /**
-   * Observe que há outra sobrecarga para `createWatchCompilerHost` que leva um conjunto de arquivos raiz.
+   * Observe que há outra sobrecarga para `createWatchCompilerHost`
+   * que leva um conjunto de arquivos raiz.
    */
   const host = ts.createWatchCompilerHost(
     configPath,
@@ -62,8 +59,11 @@ function dev({
   )
 
   /**
-   * Você pode substituir tecnicamente qualquer gancho no host, embora provavelmente não seja necessário.
-   * Observe que estamos assumindo que `origCreateProgram` e` origPostProgramCreate` não usam `this`.
+   * Você pode substituir tecnicamente qualquer gancho no host,
+   * embora provavelmente não seja necessário.
+   * 
+   * Observe que estamos assumindo que `origCreateProgram`
+   * e` origPostProgramCreate` não usam `this`.
    */
   const origCreateProgram = host.createProgram
   host.createProgram = (
@@ -72,14 +72,14 @@ function dev({
     host,
     oldProgram
   ) => {
-    output.logSingleLine("** Iniciando análise... **")
+    output.logSingleLine("Iniciando compilação...")
     return origCreateProgram(rootNames, options, host, oldProgram)
   }
 
   const origPostProgramCreate = host.afterProgramCreate
 
   host.afterProgramCreate = (program) => {
-    output.logSingleLine('** Análise concluída! **')
+    output.logSingleLine('Compilação concluída!')
     origPostProgramCreate!(program)
     output.addNewline()
   }
@@ -101,7 +101,9 @@ function reportDiagnostic(diagnostic: ts.Diagnostic) {
 
 /**
  * Imprime um diagnóstico sempre que o status do watch muda.
- * Isso é principalmente para mensagens como "Iniciando compilação" ou "Compilação concluída".
+ * Isso é principalmente para mensagens como:
+ *  - Iniciando compilação
+ *  - Compilação concluída
  */
 function reportWatchStatusChanged(diagnostic: ts.Diagnostic) {
   output.note({
