@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
-import { dev } from '../src/index'
+import { dev } from '../src'
 
-dev({ path: './' })
+function run(...args: string[]) {
+  dev({ path: args.pop() ?? './' })
+}
+
+run(...process.argv)
