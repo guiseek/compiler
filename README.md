@@ -31,3 +31,9 @@ dev
 ```sh
 Ctrl + C
 ```
+
+## Dev
+
+```sh
+dev src/
+```

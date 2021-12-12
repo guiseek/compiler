@@ -13,7 +13,7 @@ export interface CLIMessageConfig {
 class CLIOutput {
   private readonly DEV_PREFIX = `${chalk.cyan(
     '>'
-  )} ${chalk.reset.inverse.bold.cyan(' DEV ')}`
+  )} ${chalk.reset.cyan(' Dev ')}`
 
   private writeToStdOut(str: string) {
     process.stdout.write(str)
@@ -42,8 +42,8 @@ class CLIOutput {
 
   error({ title, bodyLines }: CLIMessageConfig) {
     this.writeOutputTitle({
-      label: chalk.reset.inverse.bold.red(' ERRO '),
-      title: chalk.bold.red(title),
+      label: chalk.reset.red(' ERRO '),
+      title: chalk.red(title),
     })
 
     this.writeOptionalOutputBody(bodyLines)
@@ -51,8 +51,8 @@ class CLIOutput {
 
   note({ title, bodyLines }: CLIMessageConfig) {
     this.writeOutputTitle({
-      label: chalk.reset.inverse.bold.keyword('orange')(' NOTA '),
-      title: chalk.bold.keyword('orange')(title),
+      label: chalk.reset.keyword('orange')('* Nota *'),
+      title: chalk.keyword('orange')(title),
     })
 
     this.writeOptionalOutputBody(bodyLines)
