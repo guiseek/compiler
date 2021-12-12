@@ -7,7 +7,7 @@
     "dev": "./bin/run.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp README.md dist/",
     "format": "npx prettier --write 'src/**/*.{ts,js,json,md}'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
