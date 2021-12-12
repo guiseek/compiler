@@ -11,9 +11,9 @@ export interface CLIMessageConfig {
 }
 
 class CLIOutput {
-  private readonly DEV_PREFIX = `${chalk.cyan(
-    '>'
-  )} ${chalk.reset.cyan(' Dev ')}`
+  private readonly DEV_PREFIX = `${chalk.cyan('>')} ${chalk.reset.cyan(
+    ' Dev '
+  )}`
 
   private writeToStdOut(str: string) {
     process.stdout.write(str)
