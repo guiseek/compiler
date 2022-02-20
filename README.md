@@ -1,39 +1,31 @@
-# TypeScript Dev Compiler
+# Simple TypeScript Compiler
 
-## Run
+## Use
+---
 
 ### Install
 
 ```sh
-npm install
+npm i -g @guiseek/compiler
 ```
 
-### Build
+### Run
 
 ```sh
-npm run build
+dev src/
 ```
 
-### Link
-
-```sh
-npm link dist/
-```
-
-### Dev compiler
-
-```sh
-dev
-```
-
-### Quit
+#### Quit
 
 ```sh
 Ctrl + C
 ```
 
-## Dev
+---
 
-```sh
-dev src/
-```
+### You can also contribute to this project and that would be awesome!
+
+[I want to contribute](CONTRIBUTING.md)
+
+
+![OpenSource Guide, Contribute](https://opensource.guide/assets/images/illos/contribute.svg)
