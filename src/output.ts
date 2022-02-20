@@ -11,8 +11,8 @@ export interface CLIMessageConfig {
 }
 
 class CLIOutput {
-  private readonly DEV_PREFIX = `${chalk.cyan('>')} ${chalk.reset.cyan(
-    ' Dev '
+  private readonly DEV_PREFIX = `${chalk.rgb(0, 255, 247)('➜')} ${chalk.reset.cyan(
+    ' dev '
   )}`
 
   private writeToStdOut(str: string) {
@@ -42,7 +42,7 @@ class CLIOutput {
 
   error({ title, bodyLines }: CLIMessageConfig) {
     this.writeOutputTitle({
-      label: chalk.reset.red(' ERRO '),
+      label: chalk.reset.red(' error '),
       title: chalk.red(title),
     })
 
@@ -51,8 +51,8 @@ class CLIOutput {
 
   note({ title, bodyLines }: CLIMessageConfig) {
     this.writeOutputTitle({
-      label: chalk.reset.keyword('orange')('* Nota *'),
-      title: chalk.keyword('orange')(title),
+      label: chalk.reset.rgb(255, 234, 7)('➜ status'),
+      title: chalk.rgb(81, 214, 86)(title),
     })
 
     this.writeOptionalOutputBody(bodyLines)

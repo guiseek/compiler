@@ -1,11 +1,7 @@
+import { reportDiagnostic, reportWatchStatusChanged } from './utilities'
 import { output } from './output'
-import ts from 'typescript'
 
-const formatHost: ts.FormatDiagnosticsHost = {
-  getCanonicalFileName: (path) => path,
-  getCurrentDirectory: ts.sys.getCurrentDirectory,
-  getNewLine: () => ts.sys.newLine,
-}
+import ts from 'typescript'
 
 function dev({ path = './' }) {
   const configPath = ts.findConfigFile(path, ts.sys.fileExists, 'tsconfig.json')
@@ -83,27 +79,6 @@ function dev({ path = './' }) {
    * os arquivos e atualiza o programa ao longo do tempo.
    */
   ts.createWatchProgram(host)
-}
-
-function reportDiagnostic(diagnostic: ts.Diagnostic) {
-  output.error({
-    title: `Erro ${diagnostic.code}`,
-    bodyLines: [diagnostic.messageText.toString()],
-  })
-  output.addNewline()
-}
-
-/**
- * Imprime um diagnóstico sempre que o status do watch muda.
- * Isso é principalmente para mensagens como:
- *  - Iniciando compilação
- *  - Compilação concluída
- */
-function reportWatchStatusChanged(diagnostic: ts.Diagnostic) {
-  output.note({
-    title: 'Estado',
-    bodyLines: [ts.formatDiagnostic(diagnostic, formatHost)],
-  })
 }
 
 export { dev }
